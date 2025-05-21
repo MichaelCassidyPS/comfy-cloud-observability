@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: public.ecr.aws/docker/library/python:3.12-slim
+          command: ["python", "-m", "http.server", "8080"]
+          env:
+            - name: DELAY_MS          # latency injected by induce_latency.sh
+              value: "0"
+          ports:
+            - containerPort: 8080
