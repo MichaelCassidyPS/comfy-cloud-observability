@@ -1,0 +1,12 @@
+[
+  {
+    "op": "add",
+    "path": "/spec/template/spec/containers/-",
+    "value": {
+      "name": "adot",
+      "image": "public.ecr.aws/aws-observability/aws-otel-collector:latest",
+      "args": ["--config=/etc/otel/config.yaml"],
+      "resources": { "limits": { "cpu": "100m", "memory": "200Mi" } }
+    }
+  }
+]
