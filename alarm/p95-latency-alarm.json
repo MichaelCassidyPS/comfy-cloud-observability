@@ -1,14 +1,42 @@
 {
   "AlarmName": "Checkout-P95-Latency",
-  "MetricName": "P95Latency",
-  "Namespace": "AWS/XRay",
-  "Statistic": "p95",
-  "ComparisonOperator": "GreaterThanThreshold",
-  "Threshold": 500,
-  "Period": 60,
-  "EvaluationPeriods": 1,
-  "AlarmActions": [
-    "arn:aws:sns:${AWS::Region}:${AWS::AccountId}:ComfyPipelineAlerts"
+  "ComparisonOperator": "GreaterThanUpperThreshold",
+  "EvaluationPeriods": 3,
+  "DatapointsToAlarm": 3,
+  "ThresholdMetricId": "ad1",
+  "Metrics": [
+    {
+      "Id": "m1",
+      "MetricStat": {
+        "Metric": {
+          "Namespace": "AWS/ServiceLens",
+          "MetricName": "LatencyP95",
+          "Dimensions": [
+            {
+              "Name": "ServiceName",
+              "Value": "checkout-service"
+            }
+          ]
+        },
+        "Period": 60,
+        "Stat": "p95"
+      },
+      "ReturnData": true
+    },
+    {
+      "Id": "ad1",
+      "Expression": "ANOMALY_DETECTION_BAND(m1, 2)",
+      "Label": "AnomalyBand",
+      "ReturnData": false
+    }
   ],
-  "TreatMissingData": "notBreaching"
+  "AlarmActions": [
+    "arn:aws:sns:us-east-1:123456789012:ComfyPipelineAlerts"
+  ],
+  "Tags": [
+    {
+      "Key": "Project",
+      "Value": "ComfyCloud"
+    }
+  ]
 }
