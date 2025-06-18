@@ -24,8 +24,8 @@ Minimal instructions for the Module 3 demo: attach an OpenTelemetry sidecar, lig
    &nbsp;&nbsp;&nbsp;&nbsp;  --addon-version latest  
 
 3. **Clone this repo and switch to branch `main`**  
-   &nbsp;&nbsp;&nbsp;&nbsp;git clone https://github.com/&lt;your-handle&gt;/comfy-cloud-observability.git  
-   &nbsp;&nbsp;&nbsp;&nbsp;cd comfy-cloud-observability  
+   git clone https://github.com/<your-handle>/comfy-cloud-observability.git
+   cd comfy-cloud-observability
 
 4. **Make helper scripts executable**  
    &nbsp;&nbsp;&nbsp;&nbsp;chmod +x scripts/\*.sh  
