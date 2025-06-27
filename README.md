@@ -11,10 +11,22 @@ Minimal instructions for the Module 3 demo: attach an OpenTelemetry sidecar, lig
 | **AWS CLI** | ≥ 2.13 |
 | **kubectl** | ≥ 1.29 |
 
-1. **Module 1 and Module 2 resources are running**  
-   *EKS cluster `dev-eks`, CodeBuild project `hoodie-build`, SNS topic `ComfyPipelineAlerts`.*
+1. **Re-create the EKS cluster**
 
-2. **Enable the CloudWatch Observability EKS add-on**  
+    ```bash
+    eksctl create cluster \
+      --name dev-eks \
+      --region us-east-1 \
+      --nodes 2 \
+      --node-type t3.medium \
+      --vpc-nat-mode=Disable \
+      --node-private-networking=false
+    ```
+
+2. **Module 1 and Module 2 resources are running**  
+   *CodeBuild project `hoodie-build`and SNS topic `ComfyPipelineAlerts`.*
+
+3. **Enable the CloudWatch Observability EKS add-on**  
    Installs the ADOT collector and auto-attaches the IAM policy `AWSXRayDaemonWriteAccess`.  
    Console path: **EKS → dev-eks → Add-ons → Get more add-ons → AWS Distro for OpenTelemetry (ADOT) → Create**  
    CLI alternative:  
@@ -23,7 +35,7 @@ Minimal instructions for the Module 3 demo: attach an OpenTelemetry sidecar, lig
    &nbsp;&nbsp;&nbsp;&nbsp;  --addon-name adot \\  
    &nbsp;&nbsp;&nbsp;&nbsp;  --addon-version latest  
 
-3. **Clone this repo and switch to branch `main`**  
+4. **Clone this repo and switch to branch `main`**  
 
     ```bash
     git clone https://github.com/<your-handle>/comfy-cloud-observability.git
@@ -34,6 +46,4 @@ Minimal instructions for the Module 3 demo: attach an OpenTelemetry sidecar, lig
 
 5. **Make helper scripts executable**  
    &nbsp;&nbsp;&nbsp;&nbsp;chmod +x scripts/\*.sh  
-
-That’s all you need—everything else happens live in the AWS console during the video.
 
